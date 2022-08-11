@@ -8,11 +8,12 @@ namespace SolitaAssignment.Controllers
     public class JourneyController : ControllerBase
     {
         public static DatabaseObject DBobject = new DatabaseObject();
-        [HttpGet("{page}")]
+        [HttpGet("pageid")]
         [Route("journeys")]
-        public async Task<ActionResult<IEnumerable<string>>> GetJourneys(int page)
+        public async Task<ActionResult<IEnumerable<string>>> GetJourneys(int pageid)
         {
-            List<BikeJourney> journeys = DBobject.GetJourneys();
+            Console.WriteLine(pageid);
+            List<BikeJourney> journeys = DBobject.GetJourneys(pageid);
             string data = "";
             foreach(var journey in journeys)
             {
