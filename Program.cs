@@ -2,6 +2,7 @@ using Microsoft.VisualBasic.FileIO;
 using System.IO;
 using System.Linq;
 using SolitaAssignment.Models;
+using SolitaAssignment.Controllers;
 
 namespace SolitaAssignment
 {
@@ -20,15 +21,15 @@ namespace SolitaAssignment
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(',');
-                    BikeJourney Journey = new BikeJourney();
-                    Journey.departuretime = values[0];
+                    BikeJourney Journey = new BikeJourney(values);
+                    /*Journey.departuretime = values[0];
                     Journey.returntime = values[1];
                     Journey.departurestationid = values[2];
                     Journey.departurestationname = values[3];
                     Journey.returnstationid = values[4];
                     Journey.returnstationname = values[5];
                     Journey.covereddistance = values[6];
-                    Journey.duration = values[7];
+                    Journey.duration = values[7];*/
                     if(i < 1000)
                     {
                         Journeys.Add(Journey);
@@ -70,18 +71,20 @@ namespace SolitaAssignment
         }
         public static void Main(string[] args)
         {
-            DBobject.Initsql();
-            readCSVs();
+            //DBobject.Initsql();
+            //readCSVs();
 
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddControllers();
+            builder.Services.AddMvc();
             var app = builder.Build();
 
-            //builder.Services.AddControllers();
 
             //app.MapGet("/", () => "Hello World!");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
+            app.MapControllers();
 
             app.Run();
         }

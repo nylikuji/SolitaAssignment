@@ -7,7 +7,7 @@ namespace SolitaAssignment
     {
         SQLiteConnection? connection;
 
-        public void Initsql()
+        public DatabaseObject()
         {
             connection = new SQLiteConnection("Data Source=database.db;Version=3");
             connection.Open();
@@ -44,6 +44,33 @@ namespace SolitaAssignment
             order += "COMMIT;";
             SQLiteCommand command = new SQLiteCommand(order, connection);
             command.ExecuteNonQuery();
+        }
+        public List<BikeJourney> GetJourneys()
+        {
+            string list = "";
+            string order = "SELECT * FROM bikejourneys LIMIT 10";
+            SQLiteCommand command = new SQLiteCommand(order, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            List<BikeJourney> Journeys = new List<BikeJourney>();
+
+            while (reader.Read())
+            {
+                string[] props = new string[8];
+                props[0] = reader.GetString(0);
+                props[1] = reader.GetString(1);
+                props[2] = reader.GetString(2);
+                props[3] = reader.GetString(3);
+                props[4] = reader.GetString(4);
+                props[5] = reader.GetString(5);
+                props[6] = reader.GetString(6);
+                props[7] = reader.GetString(7);
+                BikeJourney Journey = new BikeJourney(props);
+                Journeys.Add(Journey);
+            }
+
+            return Journeys;
+            //return command.ExecuteNonQuery().ToString();
         }
     }
 }
