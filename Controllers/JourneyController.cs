@@ -16,6 +16,7 @@ namespace SolitaAssignment.Controllers
             string data = "";
             foreach(var journey in journeys)
             {
+                data += "<tr>";
                 data += $"<td> {journey.departuretime} </td>";
                 data += $"<td> {journey.returntime} </td>";
                 data += $"<td> {journey.departurestationid} </td>";
@@ -23,7 +24,8 @@ namespace SolitaAssignment.Controllers
                 data += $"<td> {journey.returnstationid} </td>";
                 data += $"<td> {journey.returnstationname} </td>";
                 data += $"<td> {journey.covereddistance} </td>";
-                data += $"<td> {journey.duration} </td> \n";
+                data += $"<td> {journey.duration} </td>";
+                data += "</tr>\n";
             }
             return Ok(data);
         }
