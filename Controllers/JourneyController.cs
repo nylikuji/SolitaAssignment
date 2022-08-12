@@ -12,7 +12,20 @@ namespace SolitaAssignment.Controllers
         [Route("journeys")]
         public async Task<ActionResult<IEnumerable<string>>> GetJourneys(int pageid, string sortby)
         {
-            Console.WriteLine(pageid);
+            string[] columns = { "departuretime", "returntime", "departurestationid", "departurestationname", "returnstationid", "returnstationname", "covereddistance", "duration" };
+            bool validRequest = false;
+            foreach(string column in columns)
+            {
+                if(sortby == column + " ASC" || sortby == column + " DESC")
+                {
+                    validRequest = true;  //making sure the client doesn't send tomfoolery
+                }
+            }
+            if (!validRequest)
+            {
+                return BadRequest();
+            }
+
             List<BikeJourney> journeys = DBobject.GetJourneys(pageid, sortby);
             string data = "";
             foreach(var journey in journeys)
