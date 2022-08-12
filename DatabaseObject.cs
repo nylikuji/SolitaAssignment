@@ -12,6 +12,22 @@ namespace SolitaAssignment
             connection = new SQLiteConnection("Data Source=database.db;Version=3");
             connection.Open();
         }
+        
+        public void AddIndexes()
+        {
+            string[] indexes = { "departuretime", "returntime", "departurestationid", "departurestationname", "returnstationid", "returnstationname", "covereddistance", "duration" };
+            foreach(string index in indexes)
+            {
+                string order = $"DROP INDEX {index}_idx";
+                SQLiteCommand cmd = new SQLiteCommand(order,connection);
+                cmd.ExecuteNonQuery();
+
+                order = $"CREATE INDEX {index}_idx ON bikejourneys ({index})";
+                Console.WriteLine($"creating índex {index}_idx");
+                cmd = new SQLiteCommand(order,connection);
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public void ClearDataBase()
         {
