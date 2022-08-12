@@ -10,10 +10,10 @@ namespace SolitaAssignment.Controllers
         public static DatabaseObject DBobject = new DatabaseObject();
         [HttpGet("pageid")]
         [Route("journeys")]
-        public async Task<ActionResult<IEnumerable<string>>> GetJourneys(int pageid)
+        public async Task<ActionResult<IEnumerable<string>>> GetJourneys(int pageid, string sortby)
         {
             Console.WriteLine(pageid);
-            List<BikeJourney> journeys = DBobject.GetJourneys(pageid);
+            List<BikeJourney> journeys = DBobject.GetJourneys(pageid, sortby);
             string data = "";
             foreach(var journey in journeys)
             {

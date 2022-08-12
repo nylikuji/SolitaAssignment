@@ -6,16 +6,17 @@
 </head>
 <body>
     <input type="number" id="pageid" onchange="getjourneys()"/>
+    <p id="sortingby"></p>
     <table id="journeytable">
         <tr>
-            <th>Depart time</th>
-            <th>Return time</th>
-            <th>Depart station ID</th>
-            <th>Depart station name</th>
-            <th>Return station Id</th>
-            <th>Return station name</th>
-            <th>Covered distance in meters</th>
-            <th>Duration in seconds</th>
+            <th onclick="sortlist('departuretime')">Depart time</th>
+            <th onclick="sortlist('returntime')">Return time</th>
+            <th onclick="sortlist('departurestationid')">Depart station ID</th>
+            <th onclick="sortlist('departurestationname')">Depart station name</th>
+            <th onclick="sortlist('returnstationid')">Return station Id</th>
+            <th onclick="sortlist('returnstationname')">Return station name</th>
+            <th onclick="sortlist('covereddistance')">Covered distance in meters</th>
+            <th onclick="sortlist('duration')">Duration in seconds</th>
         </tr>
     </table>
     <script src="js/getjourneys.js" asp-append-version="true"></script>

@@ -45,10 +45,10 @@ namespace SolitaAssignment
             SQLiteCommand command = new SQLiteCommand(order, connection);
             command.ExecuteNonQuery();
         }
-        public List<BikeJourney> GetJourneys(int page)
+        public List<BikeJourney> GetJourneys(int page, string sortby)
         {
             string list = "";
-            string order = "SELECT * FROM bikejourneys LIMIT 10 OFFSET " + page * 10;
+            string order = $"SELECT * FROM bikejourneys ORDER BY {sortby} ASC LIMIT 10 OFFSET " + page * 10;
             SQLiteCommand command = new SQLiteCommand(order, connection);
             SQLiteDataReader reader = command.ExecuteReader();
 
