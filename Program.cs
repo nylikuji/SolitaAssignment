@@ -72,7 +72,7 @@ namespace SolitaAssignment
         public static void Main(string[] args)
         {
             //DBobject.Initsql();
-            //readCSVs();
+            readCSVs();
 
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();

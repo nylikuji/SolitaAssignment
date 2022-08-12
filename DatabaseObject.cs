@@ -25,19 +25,9 @@ namespace SolitaAssignment
             int skips = 0;
             foreach(BikeJourney Journey in Journeys)
             {
-                if(int.TryParse(Journey.duration, out int dur))
+                if (!Journey.Validate())
                 {
-                    if(dur < 10)
-                    {
-                        continue;
-                    }
-                }
-                if(int.TryParse(Journey.covereddistance,out int dist))
-                {
-                    if(dist < 10)
-                    {
-                        continue;
-                    }
+                    continue;
                 }
                 order += $"INSERT INTO bikejourneys VALUES ('{Journey.departuretime}','{Journey.returntime}','{Journey.departurestationid}','{Journey.departurestationname}','{Journey.returnstationid}','{Journey.returnstationname}','{Journey.covereddistance}','{Journey.duration}');";
             }
