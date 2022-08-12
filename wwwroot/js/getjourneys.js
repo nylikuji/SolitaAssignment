@@ -1,6 +1,7 @@
 ﻿const uri = "journeys";
 const journeytablecolumns = document.getElementById("journeytable").innerHTML;
 let sortby = "covereddistance";
+let ascordesc = "ASC";
 
 function getjourneys() {
     let pageid = document.getElementById("pageid").value.trim();
@@ -19,6 +20,12 @@ function getjourneys() {
 }
 
 function sortlist(str) {
-    sortby = str;
+    if (ascordesc == "ASC") {
+        ascordesc = "DESC";
+    }
+    else {
+        ascordesc = "ASC";
+    }
+    sortby = str + " " + ascordesc;
     getjourneys();
 }
