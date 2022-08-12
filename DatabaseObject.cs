@@ -18,27 +18,22 @@ namespace SolitaAssignment
             string[] indexes = { "departuretime", "returntime", "departurestationid", "departurestationname", "returnstationid", "returnstationname", "covereddistance", "duration" };
             foreach(string index in indexes)
             {
-                string order = $"DROP INDEX {index}_idx";
-                SQLiteCommand cmd = new SQLiteCommand(order,connection);
-                cmd.ExecuteNonQuery();
-
-                order = $"CREATE INDEX {index}_idx ON bikejourneys ({index})";
+                string order = $"CREATE INDEX {index}_idx ON bikejourneys ({index})";
                 Console.WriteLine($"creating índex {index}_idx");
-                cmd = new SQLiteCommand(order,connection);
+                SQLiteCommand cmd = new SQLiteCommand(order,connection);
                 cmd.ExecuteNonQuery();
             }
         }
 
         public void ClearDataBase()
         {
-            string order = "DELETE FROM bikejourneys;";
+            string order = "DELETE FROM bikejourneys; DELETE FROM bikestations;";
             SQLiteCommand command = new SQLiteCommand(order,connection);
             command.ExecuteNonQuery();
         }
         public void InsertBikeJourneys(List<BikeJourney> Journeys)
         {
             string order = "BEGIN TRANSACTION;";
-            int skips = 0;
             foreach(BikeJourney Journey in Journeys)
             {
                 if (!Journey.Validate())
@@ -51,6 +46,18 @@ namespace SolitaAssignment
             SQLiteCommand command = new SQLiteCommand(order, connection);
             command.ExecuteNonQuery();
         }
+        public void InsertBikeStations(List<BikeStation> Stations)
+        {
+            string order = "BEGIN TRANSACTION;";
+            foreach(BikeStation Station in Stations)
+            {
+                order += $"\nINSERT INTO bikestations VALUES ('{Station.fid}','{Station.id}','{Station.nimi}','{Station.namn}','{Station.name}','{Station.osoite}','{Station.adress}','{Station.kaupunki}','{Station.stad}','{Station.opegator}','{Station.capacity}','{Station.x}','{Station.y}');";
+            }
+            order += "COMMIT;";
+            SQLiteCommand command = new SQLiteCommand(order, connection);
+            command.ExecuteNonQuery();
+        }
+
         public List<BikeJourney> GetJourneys(int page, string sortby)
         {
             string list = "";

@@ -12,9 +12,10 @@
         public string? duration;
         public BikeJourney(string[] props)
         {
-            foreach(string prop in props)
+            for (int i = 0; i < props.Length; i++)
             {
-                prop.Replace(",", ""); //erasing every "," because they would mess with the SQL command in InsertBikeJourneys()
+                props[i] = props[i].Replace(",", "");
+                props[i] = props[i].Replace("'", ""); //erasing every "," because they would mess with the SQL command in InsertBikeJourneys()
             }
 
             departuretime = props[0];
@@ -25,6 +26,10 @@
             returnstationname = props[5];
             covereddistance = props[6];
             duration = props[7];
+        }
+        public BikeJourney()
+        {
+
         }
         public bool Validate()
         {

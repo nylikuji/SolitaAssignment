@@ -9,36 +9,54 @@ namespace SolitaAssignment
     public class SolitaAssignment
     {
         public static DatabaseObject DBobject = new DatabaseObject();
-        public static void CSVintoDB(string path)
+        public static void CSVintoDB(string path, bool isJourneyFile)
         {
+            int lineCount = File.ReadLines(path).Count();
+
             using(var reader = new StreamReader(path))
             {
-                reader.ReadLine(); //skip first line of CSV file
+                //reader.ReadLine(); //skip first line of CSV file
+
                 List<BikeJourney> Journeys = new List<BikeJourney>();
+                List<BikeStation> Stations = new List<BikeStation>();
+
                 int i = 0;
+                int linePosition = 1;
                 int set = 1; //used to write to console how many sets of journeys added to database
+
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
+
                     var values = line.Split(',');
-                    BikeJourney Journey = new BikeJourney(values);
-                    /*Journey.departuretime = values[0];
-                    Journey.returntime = values[1];
-                    Journey.departurestationid = values[2];
-                    Journey.departurestationname = values[3];
-                    Journey.returnstationid = values[4];
-                    Journey.returnstationname = values[5];
-                    Journey.covereddistance = values[6];
-                    Journey.duration = values[7];*/
-                    if(i < 1000)
+
+                    BikeJourney Journey = new BikeJourney();
+                    BikeStation Station = new BikeStation();
+
+                    if (isJourneyFile)
+                        Journey = new BikeJourney(values);
+                    else
+                        Station = new BikeStation(values);
+                    
+                    if(i < 1000 && linePosition < lineCount)
                     {
-                        Journeys.Add(Journey);
+                        if(isJourneyFile)
+                            Journeys.Add(Journey);
+                        else 
+                            Stations.Add(Station);
+
                         i++;
+                        linePosition++;
                     }
                     else
                     {
-                        DBobject.InsertBikeJourneys(Journeys);
+                        if (isJourneyFile)
+                            DBobject.InsertBikeJourneys(Journeys);
+                        else 
+                            DBobject.InsertBikeStations(Stations);
+
                         Journeys.Clear();
+                        Stations.Clear();
                         i = 0;
                         Console.WriteLine("Set " + set + " added to database from " + path);
                         set++;
@@ -54,26 +72,29 @@ namespace SolitaAssignment
                 if (filepath.EndsWith(".csv"))
                 {
                     Console.WriteLine("Write 'erase' to clear database contents.");
-                    Console.WriteLine($"Write 'read' to read contents from {filepath} and write them to the database.");
+                    Console.WriteLine($"Write 'journey' to read contents from {filepath} and write them to the bikejourneys table.");
+                    Console.WriteLine($"Write 'station' to read contents from {filepath} and write them to the bikestations table.");
                     Console.WriteLine("Press enter to continue.");
                     string answer = Console.ReadLine();
-                    if(answer == "read")
+                    if(answer == "journey")
                     {
-                        CSVintoDB(filepath);
+                        CSVintoDB(filepath, true);
+                    }
+                    if(answer == "station")
+                    {
+                        CSVintoDB(filepath, false);
                     }
                     else if(answer == "erase")
                     {
                         DBobject.ClearDataBase();
                     }
-                    //Console.WriteLine(filepath);
                 }
             }
+            //DBobject.AddIndexes();
         }
         public static void Main(string[] args)
         {
-            //DBobject.Initsql();
-            //readCSVs();
-            DBobject.AddIndexes();
+            readCSVs();
 
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
