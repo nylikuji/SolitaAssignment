@@ -85,5 +85,37 @@ namespace SolitaAssignment
             return Journeys;
             //return command.ExecuteNonQuery().ToString();
         }
+
+        public List<BikeStation> GetStations(int page, string sortby)
+        {
+            string list = "";
+            string order = $"SELECT * FROM bikestations ORDER BY {sortby} LIMIT 10 OFFSET " + page * 10;
+            SQLiteCommand command = new SQLiteCommand(order, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            List<BikeStation> Stations = new List<BikeStation>();
+
+            while (reader.Read())
+            {
+                string[] props = new string[13];
+                props[0] = reader.GetString(0);
+                props[1] = reader.GetString(1);
+                props[2] = reader.GetString(2);
+                props[3] = reader.GetString(3);
+                props[4] = reader.GetString(4);
+                props[5] = reader.GetString(5);
+                props[6] = reader.GetString(6);
+                props[7] = reader.GetString(7);
+                props[8] = reader.GetString(8);
+                props[9] = reader.GetString(9);
+                props[10] = reader.GetString(10);
+                props[11] = reader.GetString(11);
+                props[12] = reader.GetString(12);
+                BikeStation Station = new BikeStation(props);
+                Stations.Add(Station);
+            }
+
+            return Stations;
+        }
     }
 }

@@ -5,21 +5,44 @@
     <title></title>
 </head>
 <body>
-    <input type="number" id="pageid" onchange="getjourneys()"/>
-    <p id="sortingby"></p>
+    <input type="number" id="journeypageid" onchange="getjourneys()"/>
+    <p id="journeysortingby"></p>
     <table id="journeytable">
         <tr>
-            <th onclick="sortlist('departuretime')">Depart time</th>
-            <th onclick="sortlist('returntime')">Return time</th>
-            <th onclick="sortlist('departurestationid')">Depart station ID</th>
-            <th onclick="sortlist('departurestationname')">Depart station name</th>
-            <th onclick="sortlist('returnstationid')">Return station Id</th>
-            <th onclick="sortlist('returnstationname')">Return station name</th>
-            <th onclick="sortlist('covereddistance')">Covered distance in meters</th>
-            <th onclick="sortlist('duration')">Duration in seconds</th>
+            <th onclick="sortjourneys('departuretime')">Depart time</th>
+            <th onclick="sortjourneys('returntime')">Return time</th>
+            <th onclick="sortjourneys('departurestationid')">Depart station ID</th>
+            <th onclick="sortjourneys('departurestationname')">Depart station name</th>
+            <th onclick="sortjourneys('returnstationid')">Return station Id</th>
+            <th onclick="sortjourneys('returnstationname')">Return station name</th>
+            <th onclick="sortjourneys('covereddistance')">Covered distance in meters</th>
+            <th onclick="sortjourneys('duration')">Duration in seconds</th>
         </tr>
     </table>
     <script src="js/getjourneys.js" asp-append-version="true"></script>
+
+
+
+    <input type="number" id="stationpageid" onchange="getstations()"/>
+    <p id="stationsortingby"></p>
+    <table id="stationtable">
+        <tr>
+            <th onclick="sortstations('id')">ID</th>
+            <th onclick="sortstations('fid')">FID</th>
+            <th onclick="sortstations('nimi')">Nimi</th>
+            <th onclick="sortstations('namn')">Namn</th>
+            <th onclick="sortstations('name')">Name</th>
+            <th onclick="sortstations('osoite')">Osoite</th>
+            <th onclick="sortstations('adress')">Adress</th>
+            <th onclick="sortstations('kaupunki')">Kaupunki</th>
+            <th onclick="sortstations('stad')">Stad</th>
+            <th onclick="sortstations('opegator')">Operator</th>
+            <th onclick="sortstations('capacity')">Capacity</th>
+            <th onclick="sortstations('x')">X</th>
+            <th onclick="sortstations('y')">Y</th>
+        </tr>
+    </table>
+    <script src="js/getstations.js" asp-append-version="true"></script>
 
 </body>
 </html>

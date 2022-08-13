@@ -1,12 +1,11 @@
-﻿const uri = "journeys";
+﻿const journeyuri = "journeys";
 const journeytablecolumns = document.getElementById("journeytable").innerHTML;
-let sortby = "covereddistance";
-let ascordesc = "ASC";
+let journeysortby = "departuretime ASC";
+let journeyascordesc = "ASC";
 
 function getjourneys() {
-    let pageid = document.getElementById("pageid").value.trim();
-    console.log(pageid);
-    fetch(uri + "/?pageid=" + pageid + "&sortby=" + sortby, {
+    let pageid = document.getElementById("journeypageid").value.trim();
+    fetch(journeyuri + "?pageid=" + pageid + "&sortby=" + journeysortby, {
         method: 'GET',
         headers: {
 
@@ -16,16 +15,16 @@ function getjourneys() {
     .then((text) => {
         document.getElementById("journeytable").innerHTML = journeytablecolumns + text;
     });
-    document.getElementById("sortingby").innerHTML = "sorting by " + sortby;
+    document.getElementById("journeysortingby").innerHTML = "sorting by " + journeysortby;
 }
 
-function sortlist(str) {
-    if (ascordesc == "ASC") {
-        ascordesc = "DESC";
+function sortjourneys(str) {
+    if (journeyascordesc == "ASC") {
+        journeyascordesc = "DESC";
     }
     else {
-        ascordesc = "ASC";
+        journeyascordesc = "ASC";
     }
-    sortby = str + " " + ascordesc;
+    journeysortby = str + " " + journeyascordesc;
     getjourneys();
 }
