@@ -76,8 +76,14 @@ namespace SolitaAssignment
                 props[3] = reader.GetString(3);
                 props[4] = reader.GetInt64(4).ToString();
                 props[5] = reader.GetString(5);
-                props[6] = reader.GetInt64(6).ToString();
-                props[7] = reader.GetInt64(7).ToString();
+                props[6] = (reader.GetFloat(6) / 1000).ToString("0.00");
+
+
+                float desimal = reader.GetInt64(7);
+                desimal /= 60;
+                props[7] = desimal.ToString("0.00");
+                props[7] = props[7].Replace(".", ":");
+
                 BikeJourney Journey = new BikeJourney(props);
                 Journeys.Add(Journey);
             }
