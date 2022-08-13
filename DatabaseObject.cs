@@ -78,11 +78,10 @@ namespace SolitaAssignment
                 props[5] = reader.GetString(5);
                 props[6] = (reader.GetFloat(6) / 1000).ToString("0.00");
 
-
-                float desimal = reader.GetInt64(7);
-                desimal /= 60;
-                props[7] = desimal.ToString("0.00");
-                props[7] = props[7].Replace(".", ":");
+                int seconds = reader.GetInt32(7);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                props[7] = minutes + ":" + seconds;
 
                 BikeJourney Journey = new BikeJourney(props);
                 Journeys.Add(Journey);
