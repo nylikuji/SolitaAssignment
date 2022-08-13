@@ -5,7 +5,7 @@ let journeyascordesc = "ASC";
 
 function getjourneys() {
     let pageid = document.getElementById("journeypageid").value.trim();
-    fetch(journeyuri + "?pageid=" + pageid + "&sortby=" + journeysortby, {
+    fetch(journeyuri + "?pageid=" + pageid + "&sortby=" + journeysortby + " " + journeyascordesc, {
         method: 'GET',
         headers: {
 
@@ -14,8 +14,15 @@ function getjourneys() {
     .then((response) => response.text())
     .then((text) => {
         document.getElementById("journeytable").innerHTML = journeytablecolumns + text;
+
+        if (journeyascordesc == "ASC") {
+            document.getElementById(journeysortby).innerHTML += "⯅";
+        }
+        else {
+            document.getElementById(journeysortby).innerHTML += "⯆";
+        }
+
     });
-    document.getElementById("journeysortingby").innerHTML = "sorting by " + journeysortby;
 }
 
 function sortjourneys(str) {
@@ -25,6 +32,6 @@ function sortjourneys(str) {
     else {
         journeyascordesc = "ASC";
     }
-    journeysortby = str + " " + journeyascordesc;
+    journeysortby = str;
     getjourneys();
 }

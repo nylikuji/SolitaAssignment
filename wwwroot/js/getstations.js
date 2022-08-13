@@ -5,7 +5,7 @@ let stationascordesc = "ASC";
 
 function getstations() {
     let pageid = document.getElementById("stationpageid").value.trim();
-    fetch(stationuri + "?pageid=" + pageid + "&sortby=" + stationsortby, {
+    fetch(stationuri + "?pageid=" + pageid + "&sortby=" + stationsortby + " " + stationascordesc, {
         method: 'GET',
         headers: {
 
@@ -14,8 +14,15 @@ function getstations() {
     .then((response) => response.text())
     .then((text) => {
         document.getElementById("stationtable").innerHTML = stationtablecolumns + text;
+        
+        if (stationascordesc == "ASC") {
+            document.getElementById(stationsortby).innerHTML += "⯅";
+        }
+        else {
+            document.getElementById(stationsortby).innerHTML += "⯆";
+        }
+
     });
-    document.getElementById("stationsortingby").innerHTML = "sorting by " + stationsortby;
 }
 
 function sortstations(str) {
@@ -25,6 +32,6 @@ function sortstations(str) {
     else {
         stationascordesc = "ASC";
     }
-    stationsortby = str + " " + stationascordesc;
+    stationsortby = str;
     getstations();
 }
