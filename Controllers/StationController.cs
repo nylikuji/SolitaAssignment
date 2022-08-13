@@ -12,6 +12,21 @@ namespace SolitaAssignment.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetStations(int pageid, string sortby)
         {
+            string[] columns = { "fid", "id", "nimi", "namn", "name", "osoite", "adress", "kaupunki", "stad", "operator", "capacity", "x", "y" };
+            bool validRequest = false;
+            foreach(string column in columns)
+            {
+                if(sortby == column + " ASC" || sortby == column + " DESC")
+                {
+                    validRequest = true;  //making sure the client doesn't send tomfoolery
+                }
+            }
+            if (!validRequest)
+            {
+                return BadRequest();
+            }
+
+
             List<BikeStation> stations = DBobject.GetStations(pageid, sortby);
             string data = "";
             foreach(var station in stations)
