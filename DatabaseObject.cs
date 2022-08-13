@@ -72,12 +72,12 @@ namespace SolitaAssignment
                 string[] props = new string[8];
                 props[0] = reader.GetString(0);
                 props[1] = reader.GetString(1);
-                props[2] = reader.GetString(2);
+                props[2] = reader.GetInt64(2).ToString();
                 props[3] = reader.GetString(3);
-                props[4] = reader.GetString(4);
+                props[4] = reader.GetInt64(4).ToString();
                 props[5] = reader.GetString(5);
-                props[6] = reader.GetString(6);
-                props[7] = reader.GetString(7);
+                props[6] = reader.GetInt64(6).ToString();
+                props[7] = reader.GetInt64(7).ToString();
                 BikeJourney Journey = new BikeJourney(props);
                 Journeys.Add(Journey);
             }
@@ -98,8 +98,8 @@ namespace SolitaAssignment
             while (reader.Read())
             {
                 string[] props = new string[13];
-                props[0] = reader.GetString(0);
-                props[1] = reader.GetString(1);
+                props[0] = reader.GetInt64(0).ToString();
+                props[1] = reader.GetInt64(1).ToString();
                 props[2] = reader.GetString(2);
                 props[3] = reader.GetString(3);
                 props[4] = reader.GetString(4);
@@ -108,7 +108,7 @@ namespace SolitaAssignment
                 props[7] = reader.GetString(7);
                 props[8] = reader.GetString(8);
                 props[9] = reader.GetString(9);
-                props[10] = reader.GetString(10);
+                props[10] = reader.GetInt64(10).ToString();
                 props[11] = reader.GetString(11);
                 props[12] = reader.GetString(12);
                 BikeStation Station = new BikeStation(props);
